@@ -1,1 +1,16 @@
 node_modules/
+node_modules
+.env
+coverage
+coverage.json
+typechain
+typechain-types
+scripts/update_website.py
+scripts/mint.js
+scripts/website_pull.sh
+scripts/website_push.sh
+
+# #Hardhat files
+# cache
+# artifacts
+

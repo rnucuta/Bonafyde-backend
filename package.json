@@ -12,9 +12,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@alch/alchemy-web3": "^1.4.7",
+    "@infura/sdk": "^2.3.10",
     "@openzeppelin/contracts": "^4.7.2",
+    "@truffle/hdwallet-provider": "^2.1.6",
+    "dotenv": "^16.0.3",
     "erc721a": "^4.2.2",
     "erc721psi": "^0.6.0",
-    "truffle-assertions": "^0.9.2"
+    "ethers": "^6.0.2",
+    "truffle-assertions": "^0.9.2",
+    "web3": "^1.8.0"
+  },
+  "devDependencies": {
+    "@openzeppelin/truffle-upgrades": "^1.17.0"
   }
 }

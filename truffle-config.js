@@ -23,6 +23,12 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
+require('dotenv').config();
+const HDWalletProvider = require("@truffle/hdwallet-provider")
+// require('ethers');
+
+const { PRIVATE_KEY, API_URL, MNEMONIC } = process.env;
+
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -33,8 +39,14 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
-
+  defaultNetwork: "goerli",
   networks: {
+    goerli: {
+      provider: () => new HDWalletProvider(MNEMONIC, API_URL),
+      network_id: '5', // eslint-disable-line camelcase
+      gas: 14465030,
+      // gasPrice: 10000000000,
+   },
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache, geth, or parity) in a separate terminal
@@ -42,10 +54,10 @@ module.exports = {
     // options below to some value.
     //
     // development: {
-    //  host: "127.0.0.1",     // Localhost (default: none)
+    //  host: "172.23.112.1",     // Localhost (default: none)
     //  port: 8545,            // Standard Ethereum port (default: none)
-    //  network_id: "*",       // Any network (default: none)
-    // },
+    //  network_id: "5777",       // Any network (default: none)
+    // }
     //
     // An additional network, but with some advanced options…
     // advanced: {

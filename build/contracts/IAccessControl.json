@@ -1030,8 +1030,8 @@
     "version": "0.8.3+commit.8d00100c.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.8",
-  "updatedAt": "2022-08-02T01:32:36.050Z",
+  "schemaVersion": "3.4.11",
+  "updatedAt": "2023-02-15T01:48:18.844Z",
   "devdoc": {
     "details": "External interface of AccessControl declared to support ERC165 detection.",
     "events": {

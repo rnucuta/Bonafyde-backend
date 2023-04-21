@@ -8,6 +8,8 @@ contract('BonafydeToken: test mint and lock', (accounts) => {
     it('is possible to mint tokens for the minter role and royalties available', async () => {
         let token = await BonafydeToken.deployed();
         await token.mint(tokenHolderOneAddress, timestampLockedFrom, unlockCodeHash); //minting works
+        // let id = await token.getCurrentID()-1;
+        // assert.equal(id, 0);
         //royalties wont work with mintable up
         token.setRoyalties(0, accounts[0], 1000);
         token.getRaribleV2Royalties(0);
@@ -26,7 +28,7 @@ contract('BonafydeToken: test mint and lock', (accounts) => {
         await truffleAssert.fails(
             token.transferFrom(tokenHolderTwoAddress, tokenHolderOneAddress, 0, { from: tokenHolderTwoAddress }),
             truffleAssert.ErrorType.REVERT,
-            'AishtisiToken: Token locked',
+            'BonafydeToken: Token locked',
         );
     });
     it('is not possible to unlock tokens for anybody else than the token holder', async () => {
@@ -34,7 +36,7 @@ contract('BonafydeToken: test mint and lock', (accounts) => {
         await truffleAssert.fails(
             token.unlockToken(correctUnlockCode, 0, { from: deployerAddress }),
             truffleAssert.ErrorType.REVERT,
-            'AishtisiToken: Only the Owner can unlock the Token',
+            'BonafydeToken: Only the Owner can unlock the Token',
         );
     });
     it('is not possible to unlock tokens without the correct unlock code', async () => {
@@ -43,21 +45,27 @@ contract('BonafydeToken: test mint and lock', (accounts) => {
         await truffleAssert.fails(
             token.unlockToken(wrongUnlockCode, 0, { from: tokenHolderTwoAddress }),
             truffleAssert.ErrorType.REVERT,
-            'AishtisiToken: Unlock Code Incorrect',
+            'BonafydeToken: Unlock Code Incorrect',
         );
-    });
-    it('is possible to unlock the token and transfer it again', async () => {
-        let token = await BonafydeToken.deployed();
         await truffleAssert.passes(token.unlockToken(correctUnlockCode, 0, { from: tokenHolderTwoAddress }));
         await truffleAssert.passes(
             token.transferFrom(tokenHolderTwoAddress, deployerAddress, 0, { from: tokenHolderTwoAddress }),
         );
-        let tokenOwner = await token.ownerOf(0);
-        assert.equal(tokenOwner, deployerAddress, 'The Owner is not the correct address');
     });
-    it('is possible to retrieve the correct token URI', async () => {
+    it('is possible to unlock the token and transfer it again', async () => {
+        let token = await BonafydeToken.deployed();
+        await truffleAssert.passes(token.unlockToken(correctUnlockCode, 0, { from: deployerAddress }));
+        await truffleAssert.passes(
+            token.transferFrom(deployerAddress, tokenHolderTwoAddress, 0, { from: deployerAddress }),
+        );
+        let tokenOwner = await token.ownerOf(0);
+        assert.equal(tokenOwner, tokenHolderTwoAddress, 'The Owner is not the correct address');
+    });
+    it('is possible to retrieve the correct token URI and ID', async () => {
         let token = await BonafydeToken.deployed();
         let metadata = await token.tokenURI(0);
-        assert.equal('https://bonafyde.io/metadata/0.json', metadata);
+        assert.equal("https://bonafyde.io/metadata/0.html", metadata);
+        
+        // assert.equal('https://gateway.pinata.cloud/ipfs/abc', metadata);
     })
 });

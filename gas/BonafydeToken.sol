@@ -2,7 +2,7 @@
 pragma solidity 0.8.3;
 
 // import "erc721a/contracts/ERC721A.sol";
-import "erc721psi/contracts/ERC721Psi.sol"
+import "erc721psi/contracts/ERC721Psi.sol";
 
 // import "@openzeppelin/contracts/token/ERC721/presets/ERC721PresetMinterPauserAutoId.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";

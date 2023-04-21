@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.3;
 import "@openzeppelin/contracts/token/ERC721/presets/ERC721PresetMinterPauserAutoId.sol";
+// import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 // import "@openzeppelin/token/ERC721/ERC721.sol";
@@ -15,6 +16,7 @@ import "./@rarible/royalties/contracts/LibRoyaltiesV2.sol";
 //https://wizard.openzeppelin.com/#erc721
 
 contract BonafydeToken is ERC721PresetMinterPauserAutoId, Ownable, RoyaltiesV2Impl {
+    // uint256 private value;
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
     mapping (uint => uint) public tokenLockedFromTimestamp;
@@ -24,10 +26,11 @@ contract BonafydeToken is ERC721PresetMinterPauserAutoId, Ownable, RoyaltiesV2Im
 
     //Mintable
     bytes4 private constant _INTERFACE_ID_ERC2981 = 0x2a55205a;
-    constructor() ERC721PresetMinterPauserAutoId("BonafydeToken", "BFT", "https://bonafyde.io/metadata/") {}
+    constructor() ERC721PresetMinterPauserAutoId("BonaFyde Token", "BFT", "https://bonafyde.io/metadata/") {}
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override {
         require(tokenLockedFromTimestamp[tokenId] > block.timestamp || tokenUnlocked[tokenId], "BonafydeToken: Token locked");
+        tokenUnlocked[tokenId] = false;
         super._beforeTokenTransfer(from, to, tokenId);
     }
 
@@ -39,17 +42,26 @@ contract BonafydeToken is ERC721PresetMinterPauserAutoId, Ownable, RoyaltiesV2Im
     }
 
     /**
-    * This one is the mint function that sets the unlock code, then calls the parent mint
+    * This is the mint function that sets the unlock code, then calls the parent mint
     */
+    //, string memory tokenuri
     function mint(address to, uint lockedFromTimestamp, bytes32 unlockHash) public onlyOwner {
+        // _setTokenURI(_tokenIds.current(), tokenuri);
+        _tokenIds.increment();
         tokenLockedFromTimestamp[_tokenIds.current()] = lockedFromTimestamp;
         tokenUnlockCodeHashes[_tokenIds.current()] = unlockHash;
-        _tokenIds.increment();
         super.mint(to);
+        //call royalties
     }
 
-    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        return string(abi.encodePacked(super.tokenURI(tokenId),".json"));
+    // function getCurrentID() public returns (uint256){
+    //     return _tokenIds.current();
+    // }
+
+    function tokenURI(uint256 tokenId) public view virtual override returns (string) {
+        require( _exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+        return string(abi.encodePacked(super.tokenURI(tokenId), ".json"));
+        //return Strings.strConcat(baseTokenURI(),Strings.uint2str(_tokenId));
     }
 
     //Royalties
