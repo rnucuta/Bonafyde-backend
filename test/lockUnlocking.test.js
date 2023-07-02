@@ -64,7 +64,7 @@ contract('BonafydeToken: test mint and lock', (accounts) => {
     it('is possible to retrieve the correct token URI and ID', async () => {
         let token = await BonafydeToken.deployed();
         let metadata = await token.tokenURI(0);
-        assert.equal("https://bonafyde.io/metadata/0.html", metadata);
+        assert.equal("https://bonafyde.io/metadata/0.json", metadata);
         
         // assert.equal('https://gateway.pinata.cloud/ipfs/abc', metadata);
     })

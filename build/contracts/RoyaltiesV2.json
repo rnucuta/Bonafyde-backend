@@ -73,7 +73,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\nimport \"./LibPart.sol\";  interface RoyaltiesV2 {\r\n     event RoyaltiesSet(uint256 tokenId, LibPart.Part[] royalties);\r\n     function getRaribleV2Royalties(uint256 id) external view returns (LibPart.Part[] memory);\r\n}",
-  "sourcePath": "C:\\Users\\raymo\\OneDrive\\Documents\\BonaFyde\\BFT\\contracts\\@rarible\\royalties\\contracts\\RoyaltiesV2.sol",
+  "sourcePath": "/mnt/c/Users/raymo/OneDrive/Documents/BonaFyde/BFT/contracts/@rarible/royalties/contracts/RoyaltiesV2.sol",
   "ast": {
     "absolutePath": "project:/contracts/@rarible/royalties/contracts/RoyaltiesV2.sol",
     "exportedSymbols": {
@@ -324,7 +324,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-02-15T01:48:18.975Z",
+  "updatedAt": "2023-04-21T06:49:40.703Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

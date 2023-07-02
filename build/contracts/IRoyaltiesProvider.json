@@ -47,7 +47,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\nimport \"./LibPart.sol\";\r\ninterface IRoyaltiesProvider {\r\n    function getRoyalties(address token, uint tokenId) external returns (LibPart.Part[] memory);\r\n}",
-  "sourcePath": "C:\\Users\\raymo\\OneDrive\\Documents\\BonaFyde\\BFT\\contracts\\@rarible\\royalties\\contracts\\IRoyaltiesProvider.sol",
+  "sourcePath": "/mnt/c/Users/raymo/OneDrive/Documents/BonaFyde/BFT/contracts/@rarible/royalties/contracts/IRoyaltiesProvider.sol",
   "ast": {
     "absolutePath": "project:/contracts/@rarible/royalties/contracts/IRoyaltiesProvider.sol",
     "exportedSymbols": {
@@ -239,7 +239,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-02-15T01:48:18.970Z",
+  "updatedAt": "2023-04-21T06:49:40.664Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

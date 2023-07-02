@@ -10,7 +10,7 @@
   "sourceMap": "60:181:24:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "60:181:24:-:0;;;;;;;;",
   "source": "// SPDX-License-Identifier: MIT  \r\npragma solidity ^0.8.0;\r\nlibrary LibRoyaltiesV2 {\r\n     /*\r\n     * bytes4(keccak256('getRoyalties(LibAsset.AssetType)')) == 0xcad96cca\r\n     */\r\n     bytes4 constant _INTERFACE_ID_ROYALTIES = 0xcad96cca;\r\n}",
-  "sourcePath": "C:\\Users\\raymo\\OneDrive\\Documents\\BonaFyde\\BFT\\contracts\\@rarible\\royalties\\contracts\\LibRoyaltiesV2.sol",
+  "sourcePath": "/mnt/c/Users/raymo/OneDrive/Documents/BonaFyde/BFT/contracts/@rarible/royalties/contracts/LibRoyaltiesV2.sol",
   "ast": {
     "absolutePath": "project:/contracts/@rarible/royalties/contracts/LibRoyaltiesV2.sol",
     "exportedSymbols": {
@@ -103,7 +103,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-02-15T01:48:18.974Z",
+  "updatedAt": "2023-04-21T06:49:40.691Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

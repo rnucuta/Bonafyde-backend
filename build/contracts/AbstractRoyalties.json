@@ -40,7 +40,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity ^0.8.0;\r\n\r\nimport \"../LibPart.sol\";\r\n\r\nabstract contract AbstractRoyalties {\r\n    mapping (uint256 => LibPart.Part[]) public royalties;\r\n    \r\n    function _saveRoyalties(uint256 _id, LibPart.Part[] memory _royalties) internal {\r\n        for (uint i = 0; i < _royalties.length; i++) {\r\n            require(_royalties[i].account != address(0x0), \"Recipient should be present\");\r\n            require(_royalties[i].value != 0, \"Royalty value should be positive\");\r\n            royalties[_id].push(_royalties[i]);\r\n        }\r\n        _onRoyaltiesSet(_id, _royalties);\r\n    }\r\n\r\n    function _updateAccount(uint256 _id, address _from, address _to) internal {\r\n        uint length = royalties[_id].length;\r\n        for(uint i = 0; i < length; i++) {\r\n            if (royalties[_id][i].account == _from) {\r\n                royalties[_id][i].account = payable(address(uint160(_to)));\r\n            }\r\n        }\r\n    }\r\n\r\n    function _onRoyaltiesSet(uint256 _id, LibPart.Part[] memory _royalties) virtual internal;\r\n}",
-  "sourcePath": "C:\\Users\\raymo\\OneDrive\\Documents\\BonaFyde\\BFT\\contracts\\@rarible\\royalties\\contracts\\impl\\AbstractRoyalties.sol",
+  "sourcePath": "/mnt/c/Users/raymo/OneDrive/Documents/BonaFyde/BFT/contracts/@rarible/royalties/contracts/impl/AbstractRoyalties.sol",
   "ast": {
     "absolutePath": "project:/contracts/@rarible/royalties/contracts/impl/AbstractRoyalties.sol",
     "exportedSymbols": {
@@ -1756,7 +1756,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-02-15T01:48:18.978Z",
+  "updatedAt": "2023-04-21T06:49:40.717Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

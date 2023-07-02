@@ -251,7 +251,7 @@
   "sourceMap": "60:354:23:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "60:354:23:-:0;;;;;;;;;;;;;;;;;;;;;;;;84:83;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;120:47;84:83;:::o;7:126:30:-;102:24;120:5;102:24;:::i;:::-;97:3;90:37;80:53;;:::o;139:238::-;;278:2;267:9;263:18;255:26;;291:79;367:1;356:9;352:17;343:6;291:79;:::i;:::-;245:132;;;;:::o;383:77::-;;449:5;438:16;;428:32;;;:::o",
   "source": "// SPDX-License-Identifier: MIT \r\npragma solidity ^0.8.0; \r\nlibrary LibPart { \r\n    bytes32 public constant TYPE_HASH = keccak256(\"Part(address account,uint96 value)\");\r\n\r\n    struct Part { \r\n        address payable account;\r\n        uint96 value; \r\n    }\r\n\r\n    function hash(Part memory part) internal pure returns (bytes32){ \r\n        return keccak256(abi.encode(TYPE_HASH, part.account, part.value));\r\n    }\r\n}",
-  "sourcePath": "C:\\Users\\raymo\\OneDrive\\Documents\\BonaFyde\\BFT\\contracts\\@rarible\\royalties\\contracts\\LibPart.sol",
+  "sourcePath": "/mnt/c/Users/raymo/OneDrive/Documents/BonaFyde/BFT/contracts/@rarible/royalties/contracts/LibPart.sol",
   "ast": {
     "absolutePath": "project:/contracts/@rarible/royalties/contracts/LibPart.sol",
     "exportedSymbols": {
@@ -710,7 +710,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-02-15T01:48:18.972Z",
+  "updatedAt": "2023-04-21T06:49:40.678Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

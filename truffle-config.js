@@ -41,10 +41,26 @@ module.exports = {
    */
   defaultNetwork: "goerli",
   networks: {
-    goerli: {
-      provider: () => new HDWalletProvider(MNEMONIC, API_URL),
-      network_id: '5', // eslint-disable-line camelcase
-      gas: 14465030,
+  //   goerli: {
+  //     networkCheckTimeout: 10000000,
+  //     pollingInterval: 30000,
+  //     provider: () => new HDWalletProvider(MNEMONIC, API_URL),
+  //     network_id: '5' , // eslint-disable-line camelcase
+  //     gas: 14465030,
+  //     // websocket: true
+  //     timeoutBlocks: 2000
+  //     // gasPrice: 10000000000,
+  //  },
+   mainnet: {
+    networkCheckTimeout: 100000,
+      //pollingInterval: 30000,
+      provider: () => new HDWalletProvider({mnemonic: MNEMONIC, providerOrUrl: API_URL, pollingInterval:3000}),
+      network_id: '1' , // eslint-disable-line camelcase
+      // gas: 0xDCB806,
+      // value: 0,
+      // gasPrice: 20000000000,
+      // websocket: true
+      timeoutBlocks: 2000
       // gasPrice: 10000000000,
    },
     // Useful for testing. The `development` name is special - truffle uses it by default
@@ -130,4 +146,11 @@ module.exports = {
   //     }
   //   }
   // }
+  plugins: [
+    'truffle-plugin-stdjsonin',
+    'truffle-plugin-verify'
+   ],
+  api_keys:{
+    etherscan: '6I219WER72AVEM6BHG27NNIANYYJ4A9YTM',
+  }
 };

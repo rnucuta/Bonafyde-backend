@@ -24,6 +24,8 @@
     "web3": "^1.8.0"
   },
   "devDependencies": {
-    "@openzeppelin/truffle-upgrades": "^1.17.0"
+    "@openzeppelin/truffle-upgrades": "^1.17.0",
+    "truffle-plugin-stdjsonin": "github:mhrsalehi/truffle-plugin-stdjsonin",
+    "truffle-plugin-verify": "^0.6.3"
   }
 }

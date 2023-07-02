@@ -20,6 +20,7 @@ contract BonafydeToken is ERC721PresetMinterPauserAutoId, Ownable, RoyaltiesV2Im
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
     mapping (uint => uint) public tokenLockedFromTimestamp;
+    mapping (uint => uint) public tokenUnlockedFromTimestamp;
     mapping (uint => bytes32) public tokenUnlockCodeHashes;
     mapping (uint => bool) public tokenUnlocked;
     event TokenUnlocked(uint tokenId, address unlockerAddress);
@@ -30,16 +31,26 @@ contract BonafydeToken is ERC721PresetMinterPauserAutoId, Ownable, RoyaltiesV2Im
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override {
         require(tokenLockedFromTimestamp[tokenId] > block.timestamp || tokenUnlocked[tokenId], "BonafydeToken: Token locked");
+        require(tokenUnlockedFromTimestamp[tokenId] < block.timestamp, "Bonafyde: Unlock timed out. Please unlock again.");
         tokenUnlocked[tokenId] = false;
         super._beforeTokenTransfer(from, to, tokenId);
     }
+
+    //need to lock token after certain amount of time its been unlocked
 
     function unlockToken(bytes32 unlockHash, uint256 tokenId) public {
         require(msg.sender == ownerOf(tokenId), "BonafydeToken: Only the Owner can unlock the Token"); //not 100% sure about that one yet
         require(keccak256(abi.encode(unlockHash)) == tokenUnlockCodeHashes[tokenId], "BonafydeToken: Unlock Code Incorrect");
         tokenUnlocked[tokenId] = true;
+        //24 hours until relock
+        tokenUnlockedFromTimestamp[tokenId] = block.timestamp+86400;
         emit TokenUnlocked(tokenId, msg.sender);
     }
+
+    // function lockToken(uint256 tokenId) public {
+    //     require(msg.sender == ownerOf(tokenId), "BonafydeToken: Only the Owner can lock the Token"); //not 100% sure about that one yet
+    //     tokenUnlocked[tokenId] = false;
+    // }
 
     /**
     * This is the mint function that sets the unlock code, then calls the parent mint
@@ -47,9 +58,9 @@ contract BonafydeToken is ERC721PresetMinterPauserAutoId, Ownable, RoyaltiesV2Im
     //, string memory tokenuri
     function mint(address to, uint lockedFromTimestamp, bytes32 unlockHash) public onlyOwner {
         // _setTokenURI(_tokenIds.current(), tokenuri);
-        _tokenIds.increment();
         tokenLockedFromTimestamp[_tokenIds.current()] = lockedFromTimestamp;
         tokenUnlockCodeHashes[_tokenIds.current()] = unlockHash;
+        _tokenIds.increment();
         super.mint(to);
         //call royalties
     }
@@ -58,10 +69,11 @@ contract BonafydeToken is ERC721PresetMinterPauserAutoId, Ownable, RoyaltiesV2Im
     //     return _tokenIds.current();
     // }
 
-    function tokenURI(uint256 tokenId) public view virtual override returns (string) {
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         require( _exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return string(abi.encodePacked(super.tokenURI(tokenId), ".json"));
-        //return Strings.strConcat(baseTokenURI(),Strings.uint2str(_tokenId));
+        // return string.concat(string.strConcat(super._baseURI(), string.uint2str(tokenId)), ".json");
+        //return Strings.strConcat(baseTokenURI(), Strings.uint2str(_tokenId));
     }
 
     //Royalties
